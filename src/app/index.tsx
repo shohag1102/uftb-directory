@@ -1,7 +1,6 @@
 import { Image } from "expo-image";
 import { Link, type Href } from "expo-router";
 import { Pressable, ScrollView, Text, View } from "react-native";
-import Animated, { FadeInDown } from "react-native-reanimated";
 
 type MenuItem = {
   label: string;
@@ -105,16 +104,12 @@ export default function Home() {
         showsVerticalScrollIndicator={false}
       >
         <View className="flex-row flex-wrap justify-between">
-          {MENU.map((m, i) => (
-            <Animated.View
-              key={m.label}
-              entering={FadeInDown.delay(i * 70).duration(450)}
-              className="mb-3 w-[48%]"
-            >
+          {MENU.map((m) => (
+            <View key={m.label} className="mb-3 w-[48%]">
               {m.live ? (
                 <Link href={m.href} asChild>
                   <Pressable
-                    className="rounded-2xl bg-white p-4 active:scale-95 active:opacity-90"
+                    className="rounded-2xl bg-white p-4 active:opacity-90"
                     style={card}
                   >
                     <TileContent item={m} />
@@ -125,7 +120,7 @@ export default function Home() {
                   <TileContent item={m} />
                 </View>
               )}
-            </Animated.View>
+            </View>
           ))}
         </View>
         {/* Latest News / Notices sections go below */}
