@@ -20,7 +20,10 @@ export default function RootLayout() {
               screenOptions={{ header: (props) => <AppHeader {...props} /> }}
             >
               <Stack.Screen name="index" options={{ title: "UFTB Info" }} />
-              <Stack.Screen name="directory" options={{ title: "Directory" }} />
+              <Stack.Screen
+                name="directory"
+                options={{ title: "Directory", headerBackVisible: false }}
+              />
               <Stack.Screen name="about" options={{ title: "About" }} />
             </Stack>
             <CopyrightFooter />
