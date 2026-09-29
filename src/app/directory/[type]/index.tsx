@@ -1,24 +1,32 @@
-import { ActivityIndicator, FlatList, Pressable, Text, View } from 'react-native';
-import { Stack, useLocalSearchParams, useRouter, type Href } from 'expo-router';
-import { Ionicons } from '@expo/vector-icons';
-import { useOrganizationUnits } from '@/hooks/useOrganizationUnits';
-import { TYPE_META } from '@/constants/organizationTypeMap';
+import { TYPE_META } from "@/constants/organizationTypeMap";
+import { useOrganizationUnits } from "@/hooks/useOrganizationUnits";
+import { Ionicons } from "@expo/vector-icons";
+import { Stack, useLocalSearchParams, useRouter, type Href } from "expo-router";
+import {
+  ActivityIndicator,
+  FlatList,
+  Pressable,
+  Text,
+  View,
+} from "react-native";
 
 export default function UnitListScreen() {
   const { type } = useLocalSearchParams<{ type: string }>();
   const router = useRouter();
-  const meta = TYPE_META[type ?? ''];
-  const { data, loading, error } = useOrganizationUnits(meta?.apiType ?? 'OFFICE');
+  const meta = TYPE_META[type ?? ""];
+  const { data, loading, error } = useOrganizationUnits(
+    meta?.apiType ?? "OFFICE",
+  );
 
   return (
     <View className="flex-1 bg-slate-100">
       <Stack.Screen
         options={
           {
-            title: meta?.title ?? 'Directory',
+            title: meta?.title ?? "Directory",
             hideMenuButton: true,
-            rightHref: '/directory',
-            rightIcon: 'grid-outline',
+            rightHref: "/directory",
+            rightIcon: "grid-outline",
           } as any
         }
       />
@@ -41,13 +49,16 @@ export default function UnitListScreen() {
           data={data}
           keyExtractor={(item) => item.id}
           contentContainerClassName="px-5 pt-5 pb-8"
+          contentContainerStyle={data.length === 0 ? { flex: 1 } : undefined}
           ItemSeparatorComponent={() => <View className="h-3" />}
           renderItem={({ item }) => (
             <Pressable
-              onPress={() => router.push(`/directory/${type}/${item.id}` as Href)}
+              onPress={() =>
+                router.push(`/directory/${type}/${item.id}` as Href)
+              }
               className="flex-row items-center rounded-2xl bg-white p-4 active:scale-[0.98] active:opacity-90"
               style={{
-                shadowColor: '#0F172A',
+                shadowColor: "#0F172A",
                 shadowOpacity: 0.06,
                 shadowRadius: 8,
                 shadowOffset: { width: 0, height: 3 },
@@ -56,15 +67,45 @@ export default function UnitListScreen() {
             >
               <View
                 className="h-11 w-11 items-center justify-center rounded-xl"
-                style={{ backgroundColor: (meta?.colors[0] ?? '#2563EB') + '1F' }}
+                style={{
+                  backgroundColor: (meta?.colors[0] ?? "#2563EB") + "1F",
+                }}
               >
-                <Ionicons name={meta?.icon ?? 'business'} size={22} color={meta?.colors[0] ?? '#2563EB'} />
+                <Ionicons
+                  name={meta?.icon ?? "business"}
+                  size={22}
+                  color={meta?.colors[0] ?? "#2563EB"}
+                />
               </View>
-              <Text className="ml-3 flex-1 text-[15px] font-semibold text-slate-800">{item.name}</Text>
+              <Text className="ml-3 flex-1 text-[15px] font-semibold text-slate-800">
+                {item.name}
+              </Text>
               <Ionicons name="chevron-forward" size={20} color="#CBD5E1" />
             </Pressable>
           )}
-          ListEmptyComponent={<Text className="mt-10 text-center text-slate-400">No records found.</Text>}
+          ListEmptyComponent={
+            <View className="flex-1 items-center justify-center px-10">
+              <View
+                className="h-20 w-20 items-center justify-center rounded-full"
+                style={{
+                  backgroundColor: (meta?.colors[0] ?? "#2563EB") + "14",
+                }}
+              >
+                <Ionicons
+                  name={meta?.icon ?? "business"}
+                  size={36}
+                  color={meta?.colors[0] ?? "#2563EB"}
+                />
+              </View>
+              <Text className="mt-4 text-center text-base font-bold text-slate-700">
+                No records found
+              </Text>
+              <Text className="mt-1 text-center text-[13px] leading-5 text-slate-400">
+                No {(meta?.title ?? "records").toLowerCase()} are available
+                right now.
+              </Text>
+            </View>
+          }
         />
       )}
     </View>

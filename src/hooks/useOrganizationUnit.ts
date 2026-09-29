@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useState } from 'react';
-import { api } from '@/lib/api';
-import type { OrganizationUnit } from '@/types/organization';
-import type { Employee, PersonTab } from '@/constants/personCategories';
+import type { Employee, PersonTab } from "@/constants/personCategories";
+import { api } from "@/lib/api";
+import type { OrganizationUnit } from "@/types/organization";
+import { useCallback, useEffect, useState } from "react";
 
 export function useOrganizationUnit(id: string) {
   const [unit, setUnit] = useState<OrganizationUnit | null>(null);
@@ -17,7 +17,6 @@ export function useOrganizationUnit(id: string) {
       active = false;
     };
   }, [id]);
-
   return { unit, loading };
 }
 
@@ -31,10 +30,10 @@ export function useUnitPeople(id: string, tab: PersonTab) {
     setError(null);
     api
       .get<Employee[]>(`/api/organization-units/${id}/people`, {
-        params: tab === 'ALL' ? undefined : { category: tab },
+        params: tab === "ALL" ? undefined : { category: tab },
       })
       .then((res) => setPeople(res.data))
-      .catch((e) => setError(e?.message ?? 'Failed to load'))
+      .catch((e) => setError(e?.message ?? "Failed to load"))
       .finally(() => setLoading(false));
   }, [id, tab]);
 
