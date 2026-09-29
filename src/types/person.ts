@@ -15,7 +15,7 @@ export type Person = {
   designation: string;
   organizationUnitId: string;
 
-  phone?: string | null;
+  mobile?: string | null;
   email?: string | null;
   bloodGroup?: string | null;
   extension?: string | null;

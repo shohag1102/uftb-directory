@@ -16,7 +16,7 @@ const DEVELOPER: Person = {
   office: "ICT Services Office",
   university: "University of Frontier Technology",
   image: require("../../assets/images/shohag-suit.png"),
-  phone: "+8801785371470",
+  mobile: "+8801785371470",
   email: "saikathossain1102@gmail.com",
   bloodGroup: "O+",
 };

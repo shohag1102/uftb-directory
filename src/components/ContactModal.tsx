@@ -307,30 +307,30 @@ export default function ContactModal({ person, visible, onClose }: Props) {
                 <View className="h-px flex-1 bg-slate-200" />
               </View>
 
-              {!!person.phone && (
+              {!!person.mobile && (
                 <InfoRow
                   icon="call"
                   color="#16A34A"
-                  label="Phone"
-                  value={person.phone}
+                  label="mobile"
+                  value={person.mobile}
                 >
                   <ActionButton
                     icon="call"
                     color="#16A34A"
                     label="Call"
-                    onPress={() => callNumber(person.phone!)}
+                    onPress={() => callNumber(person.mobile!)}
                   />
                   <ActionButton
                     icon="chatbubble-ellipses"
                     color="#2563EB"
                     label="Send message"
-                    onPress={() => sendSms(person.phone!)}
+                    onPress={() => sendSms(person.mobile!)}
                   />
                   <ActionButton
                     icon="logo-whatsapp"
                     color="#25D366"
                     label="WhatsApp"
-                    onPress={() => openWhatsApp(person.phone!)}
+                    onPress={() => openWhatsApp(person.mobile!)}
                   />
                 </InfoRow>
               )}

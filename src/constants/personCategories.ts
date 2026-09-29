@@ -1,9 +1,30 @@
+export type PersonCategory = 'TEACHER' | 'OFFICER' | 'STAFF' | 'ADMIN';
+
+export type Employee = {
+  id: string;
+  name: string;
+  category: PersonCategory;
+
+  office?: string;
+  university?: string;
+
+  designation: string;
+  organizationUnitId: string;
+
+  mobile?: string | null;
+  email?: string | null;
+  bloodGroup?: string | null;
+  extension?: string | null;
+
+  image?: string | null;
+};
+
 export const PERSON_TABS = [
-  { label: "All", value: "ALL" },
-  { label: "Teachers", value: "TEACHER" },
-  { label: "Officers", value: "OFFICER" },
-  { label: "Staff", value: "STAFF" },
-  { label: "Admin", value: "ADMIN" },
+  { label: 'All', value: 'ALL' },
+  { label: 'Teachers', value: 'TEACHER' },
+  { label: 'Officers', value: 'OFFICER' },
+  { label: 'Staff', value: 'STAFF' },
+  { label: 'Admin', value: 'ADMIN' },
 ] as const;
 
-export type PersonTab = (typeof PERSON_TABS)[number]["value"];
+export type PersonTab = (typeof PERSON_TABS)[number]['value'];

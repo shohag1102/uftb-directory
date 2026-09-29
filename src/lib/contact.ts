@@ -13,23 +13,23 @@ const open = async (url: string, failMessage: string) => {
 const clean = (p: string) => p.replace(/[^\d+]/g, "");
 
 // WhatsApp wants the full international number, digits only
-export const toWhatsAppNumber = (phone: string) => {
-  const d = phone.replace(/\D/g, "");
-  if (phone.trim().startsWith("+")) return d;
+export const toWhatsAppNumber = (mobile: string) => {
+  const d = mobile.replace(/\D/g, "");
+  if (mobile.trim().startsWith("+")) return d;
   if (d.startsWith("00")) return d.slice(2);
   if (d.startsWith("0")) return DEFAULT_COUNTRY_CODE + d.slice(1);
   return d;
 };
 
-export const callNumber = (phone: string) =>
-  open(`tel:${clean(phone)}`, "Phone calls are not available on this device.");
+export const callNumber = (mobile: string) =>
+  open(`tel:${clean(mobile)}`, "phone calls are not available on this device.");
 
-export const sendSms = (phone: string) =>
-  open(`sms:${clean(phone)}`, "No messaging app was found.");
+export const sendSms = (mobile: string) =>
+  open(`sms:${clean(mobile)}`, "No messaging app was found.");
 
-export const openWhatsApp = (phone: string) =>
+export const openWhatsApp = (mobile: string) =>
   open(
-    `https://wa.me/${toWhatsAppNumber(phone)}`,
+    `https://wa.me/${toWhatsAppNumber(mobile)}`,
     "WhatsApp could not be opened.",
   );
 
