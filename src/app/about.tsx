@@ -8,13 +8,17 @@ import { Pressable, ScrollView, Text, View } from "react-native";
 import Animated, { FadeInDown } from "react-native-reanimated";
 
 const DEVELOPER: Person = {
+  id: "EMP001",
   name: "Md. Saikat Hossain Shohag",
+  category: "OFFICER",
   designation: "Assistant Computer Programmer",
-  office: "ICT Office",
+  organizationUnitId: "OFF006",
+  office: "ICT Services Office",
   university: "University of Frontier Technology",
   image: require("../../assets/images/shohag-suit.png"),
-  phone: "+8801723695427",
+  phone: "+8801785371470",
   email: "saikathossain1102@gmail.com",
+  bloodGroup: "O+",
 };
 
 type Feature = {
