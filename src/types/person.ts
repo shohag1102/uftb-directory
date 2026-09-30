@@ -1,7 +1,7 @@
 export type PersonCategory =
   | "TEACHER"
   | "OFFICER"
-  | "STAFF"
+  | "EMPLOYEE"
   | "ADMIN";
 
 export type Person = {

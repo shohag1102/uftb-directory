@@ -15,7 +15,7 @@ const DEVELOPER: Person = {
   organizationUnitId: "OFF006",
   office: "ICT Services Office",
   university: "University of Frontier Technology",
-  image: require("../../assets/images/shohag-suit.png"),
+  image: require("../../assets/images/root-user.png"),
   mobile: "+8801785371470",
   email: "saikathossain1102@gmail.com",
   bloodGroup: "O+",
@@ -31,7 +31,7 @@ type Feature = {
 const CURRENT: Feature[] = [
   {
     label: "Directory",
-    desc: "Contact details of teachers, officers and staff across faculties, offices, institutes, halls and laboratories.",
+    desc: "Contact details of teachers, officers and employees across faculties, offices, institutes, halls and laboratories.",
     icon: "call",
     color: "#16A34A",
   },

@@ -13,7 +13,7 @@ type MenuItem = {
 const MENU: MenuItem[] = [
   {
     label: "Directory",
-    desc: "Teachers, officers & staff",
+    desc: "Teachers, officers & employees",
     href: "/directory",
     image: require("../../assets/images/icons/directory.png"),
     live: true,

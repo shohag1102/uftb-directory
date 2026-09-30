@@ -29,7 +29,7 @@ const TAB_ICON: Record<PersonTab, keyof typeof Ionicons.glyphMap> = {
   ALL: "apps",
   TEACHER: "school",
   OFFICER: "briefcase",
-  STAFF: "people",
+  EMPLOYEE: "people",
   ADMIN: "shield-checkmark",
 };
 

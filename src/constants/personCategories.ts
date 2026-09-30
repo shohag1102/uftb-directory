@@ -1,4 +1,4 @@
-export type PersonCategory = 'TEACHER' | 'OFFICER' | 'STAFF' | 'ADMIN';
+export type PersonCategory = 'TEACHER' | 'OFFICER' | 'EMPLOYEE' | 'ADMIN';
 
 export type Employee = {
   id: string;
@@ -23,7 +23,7 @@ export const PERSON_TABS = [
   { label: 'All', value: 'ALL' },
   { label: 'Teachers', value: 'TEACHER' },
   { label: 'Officers', value: 'OFFICER' },
-  { label: 'Staff', value: 'STAFF' },
+  { label: 'Employees', value: 'EMPLOYEE' },
   { label: 'Admin', value: 'ADMIN' },
 ] as const;
 
