@@ -205,7 +205,10 @@ export default function NotFound() {
         className="mt-8"
       >
         <Pressable
-          onPress={() => router.replace("/")}
+          onPress={() => {
+            router.dismissAll();
+            router.replace("/");
+          }}
           className="active:scale-95 active:opacity-90"
         >
           <LinearGradient
