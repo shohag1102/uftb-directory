@@ -92,7 +92,7 @@ export default function AppHeader({
         {isHome ? (
           <Image
             source={require("../../assets/images/uftb-logo.png")}
-            style={{ width: 46, height: 46 }}
+            style={{ width: 60, height: 60, }}
             contentFit="contain"
           />
         ) : extra.rightHref ? (

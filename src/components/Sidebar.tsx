@@ -223,7 +223,7 @@ export default function Sidebar() {
           />
 
           <View
-            className="h-20 w-20 items-center justify-center rounded-full bg-white"
+            className="h-20 w-20 items-center justify-center rounded-full"
             style={{
               shadowColor: "#000",
               shadowOpacity: 0.25,
@@ -233,7 +233,7 @@ export default function Sidebar() {
           >
             <Image
               source={require("../../assets/images/uftb-logo.png")}
-              style={{ width: 56, height: 56 }}
+              style={{ width: 100, height: 100 }}
               contentFit="contain"
             />
           </View>
