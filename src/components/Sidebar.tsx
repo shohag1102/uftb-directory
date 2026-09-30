@@ -131,13 +131,20 @@ export default function Sidebar() {
       ? pathname === "/"
       : pathname === href || pathname.startsWith(href + "/"));
 
+  // const go = (href: Href) => {
+  //   closeDrawer();
+  //   if (isActive(href)) return; // already on this page
+
+  //   // Clear the history, then make the chosen page the new root
+  //   if (router.canDismiss()) router.dismissAll();
+  //   router.replace(href);
+  // };
   const go = (href: Href) => {
     closeDrawer();
-    if (isActive(href)) return; // already on this page
 
-    // Clear the history, then make the chosen page the new root
-    if (router.canDismiss()) router.dismissAll();
-    router.replace(href);
+    if (isActive(href)) return;
+
+    router.navigate(href);
   };
 
   return (
