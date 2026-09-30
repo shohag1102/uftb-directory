@@ -4,11 +4,12 @@ import { CopyrightFooter } from "@/components/Footers";
 import Sidebar from "@/components/Sidebar";
 import { ContactModalProvider } from "@/hooks/useContactModal";
 import { Stack } from "expo-router";
+import * as NativeSplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { View } from "react-native";
 import "../global.css";
 
-import CustomSplashScreen from "@/components/CustomSplashScreen";
+import CustomSplashScreen from "@/screens/SplashScreen";
 import * as SplashScreen from "expo-splash-screen";
 import { useCallback, useState } from "react";
 
@@ -16,8 +17,13 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [showSplash, setShowSplash] = useState(true);
+
   const onLayoutRootView = useCallback(async () => {
-    await SplashScreen.hideAsync();
+    await NativeSplashScreen.hideAsync();
+  }, []);
+
+  const handleSplashFinish = useCallback(() => {
+    setShowSplash(false);
   }, []);
   return (
     <View className="flex-1" onLayout={onLayoutRootView}>
@@ -48,9 +54,8 @@ export default function RootLayout() {
           </View>
         </ContactModalProvider>
       </DrawerProvider>
-      {showSplash && (
-        <CustomSplashScreen onFinish={() => setShowSplash(false)} />
-      )}
+      {/* Custom splash overlay */}
+      {showSplash && <CustomSplashScreen onFinish={handleSplashFinish} />}
     </View>
   );
 }
