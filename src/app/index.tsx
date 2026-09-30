@@ -106,7 +106,6 @@ export default function Home() {
         <View className="flex-row flex-wrap justify-between">
           {MENU.map((m) => (
             <View key={m.label} className="mb-3 w-[48%]">
-              {m.live ? (
                 <Link href={m.href} asChild>
                   <Pressable
                     className="rounded-2xl bg-white p-4 active:opacity-90"
@@ -115,11 +114,6 @@ export default function Home() {
                     <TileContent item={m} />
                   </Pressable>
                 </Link>
-              ) : (
-                <View className="rounded-2xl bg-white p-4" style={card}>
-                  <TileContent item={m} />
-                </View>
-              )}
             </View>
           ))}
         </View>
