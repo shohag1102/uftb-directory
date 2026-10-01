@@ -3,14 +3,13 @@ import type { NativeStackHeaderProps } from "@react-navigation/native-stack";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
-import { Pressable, Text, View } from "react-native";
+import { ActivityIndicator, Pressable, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useDrawer } from "./DrawerContext";
 
 const TOP_LEVEL = [
   "index",
   "calendar",
-  "news",
   "notice",
   "events",
   "videos",
@@ -24,6 +23,8 @@ type ExtraHeaderOptions = {
   rightIcon?: keyof typeof Ionicons.glyphMap;
   isHomeScreen?: boolean;
   subtitle?: string;
+  onRefresh?: () => void;
+  refreshing?: boolean;
 };
 
 export default function AppHeader({
@@ -89,10 +90,25 @@ export default function AppHeader({
           )}
         </View>
 
+        {!!extra.onRefresh && (
+          <Pressable
+            onPress={extra.onRefresh}
+            disabled={extra.refreshing}
+            hitSlop={10}
+            className="mr-2 h-10 w-10 items-center justify-center rounded-full bg-white/20 active:bg-white/30"
+          >
+            {extra.refreshing ? (
+              <ActivityIndicator size="small" color="#fff" />
+            ) : (
+              <Ionicons name="refresh" size={20} color="#fff" />
+            )}
+          </Pressable>
+        )}
+
         {isHome ? (
           <Image
             source={require("../../assets/images/uftb-logo.png")}
-            style={{ width: 60, height: 60, }}
+            style={{ width: 60, height: 60 }}
             contentFit="contain"
           />
         ) : extra.rightHref ? (

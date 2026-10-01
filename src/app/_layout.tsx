@@ -45,6 +45,7 @@ export default function RootLayout() {
                   options={{ headerShown: false }}
                 />
                 <Stack.Screen name="about" options={{ title: "About" }} />
+                <Stack.Screen name="news" options={{ headerShown: false }} />
               </Stack>
               <CopyrightFooter />
             </View>

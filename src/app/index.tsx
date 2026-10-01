@@ -1,3 +1,4 @@
+import LatestNewsSection from "@/components/LatestNewsSection";
 import { Image } from "expo-image";
 import { Link, type Href } from "expo-router";
 import { Pressable, ScrollView, Text, View } from "react-native";
@@ -35,6 +36,7 @@ const MENU: MenuItem[] = [
     desc: "Latest updates",
     href: "/news",
     image: require("../../assets/images/icons/newspaper.png"),
+    live: true,
   },
   {
     label: "Notice",
@@ -106,18 +108,19 @@ export default function Home() {
         <View className="flex-row flex-wrap justify-between">
           {MENU.map((m) => (
             <View key={m.label} className="mb-3 w-[48%]">
-                <Link href={m.href} asChild>
-                  <Pressable
-                    className="rounded-2xl bg-white p-4 active:opacity-90"
-                    style={card}
-                  >
-                    <TileContent item={m} />
-                  </Pressable>
-                </Link>
+              <Link href={m.href} asChild>
+                <Pressable
+                  className="rounded-2xl bg-white p-4 active:opacity-90"
+                  style={card}
+                >
+                  <TileContent item={m} />
+                </Pressable>
+              </Link>
             </View>
           ))}
         </View>
         {/* Latest News / Notices sections go below */}
+        <LatestNewsSection />
       </ScrollView>
     </View>
   );

@@ -185,7 +185,7 @@ export default function UnitDetailScreen() {
       <Stack.Screen
         options={
           {
-            title: "DU Directory",
+            title: "UFTB Directory",
             hideMenuButton: true,
             rightHref: "/directory",
             rightIcon: "grid-outline",

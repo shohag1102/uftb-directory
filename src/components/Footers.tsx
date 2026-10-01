@@ -13,7 +13,7 @@ export function CopyrightFooter() {
       style={{ paddingTop: 14, paddingBottom: insets.bottom + 10 }}
     >
       <Text className="text-center text-sm font-semibold text-white">
-        ICT Office, University of Frontier Technology
+        ICT Service Office, University of Frontier Technology
       </Text>
     </LinearGradient>
   );
