@@ -3,7 +3,7 @@ import {
   shareViaFacebook,
   shareViaLinkedIn,
   shareViaWhatsApp,
-} from "@/lib/newsShare";
+} from "@/lib/share";
 import { Ionicons } from "@expo/vector-icons";
 import { Modal, Pressable, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -12,7 +12,7 @@ type Props = {
   visible: boolean;
   onClose: () => void;
   title: string;
-  id: string;
+  url: string;
 };
 
 const OPTIONS = [
@@ -37,15 +37,15 @@ const OPTIONS = [
   },
 ];
 
-export default function ShareSheet({ visible, onClose, title, id }: Props) {
+export default function ShareSheet({ visible, onClose, title, url }: Props) {
   const insets = useSafeAreaInsets();
 
   const handle = (key: string) => {
     onClose();
-    if (key === "email") shareViaEmail(title, id);
-    if (key === "whatsapp") shareViaWhatsApp(id);
-    if (key === "facebook") shareViaFacebook(id);
-    if (key === "linkedin") shareViaLinkedIn(id);
+    if (key === "email") shareViaEmail(title, url);
+    if (key === "whatsapp") shareViaWhatsApp(url);
+    if (key === "facebook") shareViaFacebook(url);
+    if (key === "linkedin") shareViaLinkedIn(url);
   };
 
   return (
@@ -71,7 +71,7 @@ export default function ShareSheet({ visible, onClose, title, id }: Props) {
           >
             <View className="mb-4 h-1.5 w-12 self-center rounded-full bg-slate-200" />
             <Text className="mb-5 text-center text-base font-bold text-slate-800">
-              Share this news
+              Share this
             </Text>
             <View className="flex-row justify-between">
               {OPTIONS.map((o) => (

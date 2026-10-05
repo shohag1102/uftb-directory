@@ -10,11 +10,12 @@ import { useDrawer } from "./DrawerContext";
 const TOP_LEVEL = [
   "index",
   "calendar",
+  "news",
   "notice",
   "events",
-  "videos",
   "transport",
   "about",
+  "settings",
 ];
 
 type ExtraHeaderOptions = {

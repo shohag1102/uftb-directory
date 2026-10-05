@@ -17,7 +17,9 @@
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "googleServicesFile": "./google-services.json",
+      "package": "com.saikat1102.uftbdirectory"
     },
     "web": {
       "output": "static",
@@ -26,6 +28,7 @@
     },
     "plugins": [
       "expo-router",
+      "expo-notifications",
       [
         "expo-splash-screen",
         {
@@ -33,11 +36,19 @@
           "image": "./assets/images/uftb-logo.png",
           "imageWidth": 160
         }
-      ]
+      ],
+      "react-native-blob-util"
     ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "ad32fddd-668e-4e93-bb03-7ca26c94cc1d"
+      }
+    },
+    "owner": "saikat1102"
   }
 }

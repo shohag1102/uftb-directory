@@ -3,6 +3,10 @@ import { DrawerProvider } from "@/components/DrawerContext";
 import { CopyrightFooter } from "@/components/Footers";
 import Sidebar from "@/components/Sidebar";
 import { ContactModalProvider } from "@/hooks/useContactModal";
+import {
+  listenForPushTokenChanges,
+  registerForPushNotifications,
+} from "@/services/notifications";
 import { Stack } from "expo-router";
 import * as NativeSplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
@@ -11,7 +15,7 @@ import "../global.css";
 
 import CustomSplashScreen from "@/screens/SplashScreen";
 import * as SplashScreen from "expo-splash-screen";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -24,6 +28,15 @@ export default function RootLayout() {
 
   const handleSplashFinish = useCallback(() => {
     setShowSplash(false);
+  }, []);
+
+  useEffect(() => {
+    registerForPushNotifications().catch((error) => {
+      console.error("Push registration failed:", error);
+    });
+
+    const subscription = listenForPushTokenChanges();
+    return () => subscription.remove();
   }, []);
   return (
     <View className="flex-1" onLayout={onLayoutRootView}>
@@ -46,6 +59,11 @@ export default function RootLayout() {
                 />
                 <Stack.Screen name="about" options={{ title: "About" }} />
                 <Stack.Screen name="news" options={{ headerShown: false }} />
+                <Stack.Screen name="notice" options={{ headerShown: false }} />
+                <Stack.Screen
+                  name="settings"
+                  options={{ title: "Notification Settings" }}
+                />
               </Stack>
               <CopyrightFooter />
             </View>

@@ -36,7 +36,6 @@ const MAIN: MenuItem[] = [
   { label: "News", href: "/news", icon: "newspaper", color: "#0EA5E9" },
   { label: "Notice", href: "/notice", icon: "megaphone", color: "#7C3AED" },
   { label: "Events", href: "/events", icon: "ribbon", color: "#DB2777" },
-  { label: "Videos", href: "/videos", icon: "videocam", color: "#DC2626" },
   { label: "Transport", href: "/transport", icon: "bus", color: "#EA580C" },
 ];
 

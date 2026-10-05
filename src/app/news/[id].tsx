@@ -5,6 +5,7 @@ import { useMinDelay } from "@/hooks/useMinDelay";
 import { useNewsDetail } from "@/hooks/useNews";
 import { formatDate } from "@/lib/formatDate";
 import { resolveImageUrl } from "@/lib/resolveImageUrl";
+import { newsUrl } from "@/lib/share"; // was from '@/lib/newsShare'
 import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { Stack, useLocalSearchParams } from "expo-router";
@@ -128,7 +129,7 @@ export default function NewsDetailScreen() {
             visible={shareOpen}
             onClose={() => setShareOpen(false)}
             title={item.title}
-            id={item.id}
+            url={newsUrl(item.id)}
           />
         </>
       )}

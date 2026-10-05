@@ -126,7 +126,7 @@ export default function Directory() {
 
   return (
     <View className="flex-1 bg-slate-100">
-      <Stack.Screen options={{ title: 'Directory' }} />
+      <Stack.Screen options={{ title: "Directory" }} />
       <ScrollView
         contentContainerClassName="px-5 pt-6 pb-8"
         showsVerticalScrollIndicator={false}

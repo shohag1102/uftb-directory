@@ -1,4 +1,5 @@
 import LatestNewsSection from "@/components/LatestNewsSection";
+import LatestNoticesSection from "@/components/LatestNoticesSection";
 import { Image } from "expo-image";
 import { Link, type Href } from "expo-router";
 import { Pressable, ScrollView, Text, View } from "react-native";
@@ -24,6 +25,7 @@ const MENU: MenuItem[] = [
     desc: "Academic dates",
     href: "/calendar",
     image: require("../../assets/images/icons/calendar.png"),
+    live: true,
   },
   {
     label: "Transport",
@@ -43,6 +45,7 @@ const MENU: MenuItem[] = [
     desc: "Official notices",
     href: "/notice",
     image: require("../../assets/images/icons/notice.png"),
+    live: true,
   },
   {
     label: "Events",
@@ -121,6 +124,7 @@ export default function Home() {
         </View>
         {/* Latest News / Notices sections go below */}
         <LatestNewsSection />
+        <LatestNoticesSection />
       </ScrollView>
     </View>
   );

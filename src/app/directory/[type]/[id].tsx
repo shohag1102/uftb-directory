@@ -13,7 +13,6 @@ import {
 import { resolveImageUrl } from "@/lib/resolveImageUrl";
 import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
-import { LinearGradient } from "expo-linear-gradient";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import {
@@ -48,8 +47,9 @@ function Avatar({ name, image }: { name: string; image?: string | null }) {
       {uri ? (
         <Image
           source={{ uri }}
-          style={{ width: "100%", height: "100%" }}
+          style={{ width: 56, height: 56, borderRadius: 28 }}
           contentFit="cover"
+          contentPosition="top"
         />
       ) : (
         <Text className="text-base font-bold text-blue-700">{initials}</Text>

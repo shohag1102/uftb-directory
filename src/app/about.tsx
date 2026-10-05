@@ -58,12 +58,6 @@ const UPCOMING: Feature[] = [
     color: "#7C3AED",
   },
   { label: "Events", desc: "Campus events", icon: "ribbon", color: "#DB2777" },
-  {
-    label: "Videos",
-    desc: "Watch & learn",
-    icon: "videocam",
-    color: "#DC2626",
-  },
 ];
 
 const card = {

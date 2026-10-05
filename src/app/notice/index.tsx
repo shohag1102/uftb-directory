@@ -1,83 +1,20 @@
 import NoConnectionState from "@/components/NoConnectionState";
-import { ShimmerBlock } from "@/components/Shimmer";
+import { NoticeCard, NoticeCardSkeleton } from "@/components/NoticeCard";
 import { useMinDelay } from "@/hooks/useMinDelay";
-import { useInfiniteNews } from "@/hooks/useNews";
-import { formatDate } from "@/lib/formatDate";
-import { resolveImageUrl } from "@/lib/resolveImageUrl";
-import type { NewsItem } from "@/types/news";
+import { useInfiniteNotices } from "@/hooks/useNotices";
+import type { NoticeItem } from "@/types/notice";
 import { Ionicons } from "@expo/vector-icons";
-import { Image } from "expo-image";
-import { Stack, useRouter } from "expo-router";
+import { Stack } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
   Pressable,
-  ScrollView,
   Text,
   View,
 } from "react-native";
 
-const card = {
-  shadowColor: "#0F172A",
-  shadowOpacity: 0.06,
-  shadowRadius: 8,
-  shadowOffset: { width: 0, height: 3 },
-  elevation: 2,
-} as const;
-
-function NewsListCard({ item }: { item: NewsItem }) {
-  const router = useRouter();
-  return (
-    <Pressable
-      onPress={() => router.push(`/news/${item.id}`)}
-      className="overflow-hidden rounded-2xl bg-white active:opacity-90"
-      style={card}
-    >
-      <View style={{ height: 170 }}>
-        <Image
-          source={{ uri: resolveImageUrl(item.image) }}
-          style={{ width: "100%", height: "100%" }}
-          contentFit="cover"
-        />
-      </View>
-      <View className="p-4">
-        <Text
-          numberOfLines={2}
-          className="text-[15px] font-bold leading-6 text-slate-800"
-        >
-          {item.title}
-        </Text>
-        <View className="mt-3 flex-row items-center justify-between">
-          <View className="flex-row items-center">
-            <Ionicons name="calendar-outline" size={13} color="#94A3B8" />
-            <Text className="ml-1.5 text-xs text-slate-400">
-              {formatDate(item.publishDate)}
-            </Text>
-          </View>
-          <View className="h-8 w-8 items-center justify-center rounded-full bg-blue-50">
-            <Ionicons name="arrow-forward" size={16} color="#2563EB" />
-          </View>
-        </View>
-      </View>
-    </Pressable>
-  );
-}
-
-function NewsListSkeleton() {
-  return (
-    <View className="mb-4 overflow-hidden rounded-2xl bg-white" style={card}>
-      <ShimmerBlock style={{ height: 170 }} />
-      <View className="p-4">
-        <ShimmerBlock style={{ height: 14, width: "95%", marginBottom: 8 }} />
-        <ShimmerBlock style={{ height: 14, width: "70%", marginBottom: 14 }} />
-        <ShimmerBlock style={{ height: 10, width: 100 }} />
-      </View>
-    </View>
-  );
-}
-
-export default function NewsListScreen() {
+export default function NoticeListScreen() {
   const {
     items,
     loading: rawLoading,
@@ -86,11 +23,11 @@ export default function NewsListScreen() {
     hasMore,
     loadMore,
     reload,
-  } = useInfiniteNews(10);
+  } = useInfiniteNotices(10);
   const loading = useMinDelay(rawLoading, 700);
   const [refreshing, setRefreshing] = useState(false);
   const [showTop, setShowTop] = useState(false);
-  const listRef = useRef<FlatList<NewsItem>>(null);
+  const listRef = useRef<FlatList<NoticeItem>>(null);
 
   const onRefresh = () => {
     setRefreshing(true);
@@ -105,7 +42,7 @@ export default function NewsListScreen() {
       <Stack.Screen
         options={
           {
-            title: "UFTB News",
+            title: "UFTB Notices",
             hideMenuButton: false,
             rightHref: "/",
             onRefresh,
@@ -115,11 +52,11 @@ export default function NewsListScreen() {
       />
 
       {loading && items.length === 0 && (
-        <ScrollView contentContainerClassName="px-5 pt-5 pb-8">
-          {[1, 2, 3, 4].map((i) => (
-            <NewsListSkeleton key={i} />
+        <View className="px-5 pt-5">
+          {[1, 2, 3, 4, 5].map((i) => (
+            <NoticeCardSkeleton key={i} />
           ))}
-        </ScrollView>
+        </View>
       )}
 
       {!loading && error && items.length === 0 && (
@@ -137,8 +74,7 @@ export default function NewsListScreen() {
             scrollEventThrottle={16}
             onEndReached={loadMore}
             onEndReachedThreshold={0.4}
-            renderItem={({ item }) => <NewsListCard item={item} />}
-            ItemSeparatorComponent={() => <View className="h-4" />}
+            renderItem={({ item }) => <NoticeCard item={item} />}
             ListFooterComponent={
               loadingMore ? (
                 <View className="items-center py-5">
@@ -148,7 +84,7 @@ export default function NewsListScreen() {
                 <View className="items-center py-6">
                   <View className="mb-2 h-px w-16 bg-slate-300" />
                   <Text className="text-xs font-semibold text-slate-400">
-                    End of news
+                    End of notices
                   </Text>
                 </View>
               ) : null
