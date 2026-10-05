@@ -26,14 +26,6 @@ const card = {
 } as const;
 
 function NewsCard({ item, width }: { item: NewsItem; width: number }) {
-  const {
-    news,
-    loading: rawLoading,
-    refreshing,
-    error,
-    refresh,
-  } = useLatestNews(5);
-  const loading = useMinDelay(rawLoading, 700);
   const router = useRouter();
   return (
     <Pressable
@@ -41,7 +33,7 @@ function NewsCard({ item, width }: { item: NewsItem; width: number }) {
       style={{ width }}
       className="mr-4 overflow-hidden rounded-2xl bg-white active:opacity-90"
     >
-      <View style={{ height: 130 }}>
+      <View style={{ height: 160 }}>
         <Image
           source={{ uri: resolveImageUrl(item.image) }}
           style={{ width: "100%", height: "100%" }}
@@ -54,20 +46,20 @@ function NewsCard({ item, width }: { item: NewsItem; width: number }) {
             bottom: 0,
             left: 0,
             right: 0,
-            height: 56,
+            height: 64,
           }}
         />
       </View>
-      <View className="p-3">
+      <View className="p-4">
         <Text
           numberOfLines={2}
-          className="text-[13px] font-bold leading-5 text-slate-800"
+          className="text-[14px] font-bold leading-5 text-slate-800"
         >
           {item.title}
         </Text>
-        <View className="mt-2 flex-row items-center">
-          <Ionicons name="calendar-outline" size={12} color="#94A3B8" />
-          <Text className="ml-1 text-[11px] text-slate-400">
+        <View className="mt-2.5 flex-row items-center">
+          <Ionicons name="calendar-outline" size={13} color="#94A3B8" />
+          <Text className="ml-1 text-[12px] text-slate-400">
             {formatDate(item.publishDate)}
           </Text>
         </View>
@@ -82,11 +74,11 @@ function NewsCardSkeleton({ width }: { width: number }) {
       style={{ width }}
       className="mr-4 overflow-hidden rounded-2xl bg-white"
     >
-      <ShimmerBlock style={{ height: 130 }} />
-      <View className="p-3">
-        <ShimmerBlock style={{ height: 12, width: "90%", marginBottom: 6 }} />
-        <ShimmerBlock style={{ height: 12, width: "60%", marginBottom: 10 }} />
-        <ShimmerBlock style={{ height: 10, width: 70 }} />
+      <ShimmerBlock style={{ height: 160 }} />
+      <View className="p-4">
+        <ShimmerBlock style={{ height: 13, width: "90%", marginBottom: 7 }} />
+        <ShimmerBlock style={{ height: 13, width: "60%", marginBottom: 12 }} />
+        <ShimmerBlock style={{ height: 11, width: 75 }} />
       </View>
     </View>
   );
@@ -101,7 +93,7 @@ export default function LatestNewsSection() {
     refresh,
   } = useLatestNews(5);
   const { width } = useWindowDimensions();
-  const cardWidth = width * 0.6;
+  const cardWidth = width * 0.65;
 
   const loading = useMinDelay(rawLoading, 700);
   const refreshing = useMinDelay(rawRefreshing, 700);

@@ -9,8 +9,15 @@ import { newsUrl } from "@/lib/share"; // was from '@/lib/newsShare'
 import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { Stack, useLocalSearchParams } from "expo-router";
-import { useState } from "react";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import { useEffect, useState } from "react";
+import {
+  Pressable,
+  Image as RNImage,
+  ScrollView,
+  Text,
+  useWindowDimensions,
+  View,
+} from "react-native";
 
 function DetailSkeleton() {
   return (
@@ -36,6 +43,25 @@ export default function NewsDetailScreen() {
   const { item, loading: rawLoading, error } = useNewsDetail(id);
   const loading = useMinDelay(rawLoading, 700);
   const [shareOpen, setShareOpen] = useState(false);
+
+  const { width: screenWidth } = useWindowDimensions();
+  const [imageHeight, setImageHeight] = useState<number | null>(null);
+
+  const imageUrl = item ? resolveImageUrl(item.image) : undefined;
+
+  const imageContainerWidth = screenWidth * 0.8; // matches width: "80%" below
+
+  useEffect(() => {
+    if (!imageUrl) return;
+    RNImage.getSize(
+      imageUrl,
+      (w, h) => {
+        const ratio = h / w;
+        setImageHeight(imageContainerWidth * ratio);
+      },
+      () => setImageHeight(imageContainerWidth * 0.56),
+    );
+  }, [imageUrl, imageContainerWidth]);
 
   return (
     <View className="flex-1 bg-slate-100">
@@ -71,20 +97,23 @@ export default function NewsDetailScreen() {
               </View>
             </View>
 
-            <View
-              style={{
-                height: 220,
-                marginTop: 16,
-                marginHorizontal: 20,
-                borderRadius: 20,
-                overflow: "hidden",
-              }}
-            >
-              <Image
-                source={{ uri: resolveImageUrl(item.image) }}
-                style={{ width: "100%", height: "100%" }}
-                contentFit="cover"
-              />
+            <View className="px-5 mt-3">
+              <View
+                style={{
+                  width: "100%", // fills the padded container, same width as the text below
+                  height: imageHeight ?? (screenWidth - 40) * 0.56, // screenWidth minus px-5 (20+20)
+                  backgroundColor: "#F1F5F9",
+                  borderRadius: 0,
+                  overflow: "hidden",
+                }}
+              >
+                <Image
+                  source={{ uri: imageUrl }}
+                  style={{ width: "100%", height: "100%" }}
+                  contentFit="cover"
+                  contentPosition="top"
+                />
+              </View>
             </View>
 
             <View className="px-5 pt-5">

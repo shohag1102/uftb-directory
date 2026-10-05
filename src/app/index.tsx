@@ -1,12 +1,12 @@
 import LatestNewsSection from "@/components/LatestNewsSection";
 import LatestNoticesSection from "@/components/LatestNoticesSection";
+import StatusDot from "@/components/StatusDot";
 import { Image } from "expo-image";
 import { Link, type Href } from "expo-router";
 import { Pressable, ScrollView, Text, View } from "react-native";
 
 type MenuItem = {
   label: string;
-  desc: string;
   href: Href;
   image: number; // require() returns a number
   live?: boolean;
@@ -15,41 +15,35 @@ type MenuItem = {
 const MENU: MenuItem[] = [
   {
     label: "Directory",
-    desc: "Teachers, officers & employees",
     href: "/directory",
     image: require("../../assets/images/icons/directory.png"),
     live: true,
   },
   {
     label: "Calendar",
-    desc: "Academic dates",
     href: "/calendar",
     image: require("../../assets/images/icons/calendar.png"),
     live: true,
   },
   {
     label: "Transport",
-    desc: "Bus schedules",
     href: "/transport",
     image: require("../../assets/images/icons/bus-school.png"),
   },
   {
     label: "News",
-    desc: "Latest updates",
     href: "/news",
     image: require("../../assets/images/icons/newspaper.png"),
     live: true,
   },
   {
     label: "Notice",
-    desc: "Official notices",
     href: "/notice",
     image: require("../../assets/images/icons/notice.png"),
     live: true,
   },
   {
     label: "Events",
-    desc: "Campus events",
     href: "/events",
     image: require("../../assets/images/icons/event.png"),
   },
@@ -67,36 +61,22 @@ function RealisticIcon({ item }: { item: MenuItem }) {
   return (
     <Image
       source={item.image}
-      style={{ width: 52, height: 52 }}
+      style={{ width: 38, height: 38 }}
       contentFit="contain"
     />
-  );
-}
-
-function Badge({ live }: { live?: boolean }) {
-  return live ? (
-    <View className="flex-row items-center rounded-full bg-green-100 px-2 py-0.5">
-      <View className="mr-1 h-1.5 w-1.5 rounded-full bg-green-600" />
-      <Text className="text-[10px] font-bold text-green-700">LIVE</Text>
-    </View>
-  ) : (
-    <View className="rounded-full bg-amber-100 px-2 py-0.5">
-      <Text className="text-[10px] font-bold text-amber-700">SOON</Text>
-    </View>
   );
 }
 
 function TileContent({ item }: { item: MenuItem }) {
   return (
     <>
-      <View className="flex-row items-start justify-between">
-        <RealisticIcon item={item} />
-        <Badge live={item.live} />
-      </View>
-      <Text className="mt-3 text-[15px] font-bold text-slate-800">
+      <RealisticIcon item={item} />
+      <Text
+        numberOfLines={1}
+        className="mt-2 text-[12px] font-bold text-slate-800"
+      >
         {item.label}
       </Text>
-      <Text className="mt-0.5 text-xs text-slate-500">{item.desc}</Text>
     </>
   );
 }
@@ -110,13 +90,14 @@ export default function Home() {
       >
         <View className="flex-row flex-wrap justify-between">
           {MENU.map((m) => (
-            <View key={m.label} className="mb-3 w-[48%]">
+            <View key={m.label} className="mb-3 w-[31%]">
               <Link href={m.href} asChild>
                 <Pressable
-                  className="rounded-2xl bg-white p-4 active:opacity-90"
+                  className="relative items-center rounded-2xl bg-white p-3"
                   style={card}
                 >
                   <TileContent item={m} />
+                  <StatusDot live={m.live} />
                 </Pressable>
               </Link>
             </View>

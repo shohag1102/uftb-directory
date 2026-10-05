@@ -25,7 +25,7 @@ export default function NoticeDetailScreen() {
       <Stack.Screen
         options={
           {
-            title: "Details",
+            title: "Notice Details",
             hideMenuButton: true,
             rightHref: "/notice",
             rightIcon: "list",

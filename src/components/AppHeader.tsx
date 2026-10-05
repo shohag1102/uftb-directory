@@ -1,11 +1,11 @@
-import { Ionicons } from "@expo/vector-icons";
-import type { NativeStackHeaderProps } from "@react-navigation/native-stack";
-import { Image } from "expo-image";
-import { LinearGradient } from "expo-linear-gradient";
-import { useRouter } from "expo-router";
 import { useRef } from "react";
-import { ActivityIndicator, Pressable, Text, View } from "react-native";
+import { View, Text, Pressable } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import { Image } from "expo-image";
+import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import type { NativeStackHeaderProps } from "@react-navigation/native-stack";
 import { useDrawer } from "./DrawerContext";
 
 const TOP_LEVEL = [
@@ -57,7 +57,7 @@ export default function AppHeader({
     action();
     setTimeout(() => {
       navigatingRef.current = false;
-    }, 400); // cooldown window — see note above; does not delay the action itself
+    }, 400);
   };
 
   return (
@@ -94,21 +94,6 @@ export default function AppHeader({
           </Pressable>
         )}
 
-        {!!extra.onRefresh && (
-          <Pressable
-            onPress={extra.onRefresh}
-            disabled={extra.refreshing}
-            hitSlop={10}
-            className="mr-2 h-10 w-10 items-center justify-center rounded-full bg-white/20 active:bg-white/30"
-          >
-            {extra.refreshing ? (
-              <ActivityIndicator size="small" color="#fff" />
-            ) : (
-              <Ionicons name="refresh" size={20} color="#fff" />
-            )}
-          </Pressable>
-        )}
-
         <View className="flex-1">
           <Text numberOfLines={1} className="text-2xl font-bold text-white">
             {title}
@@ -122,6 +107,17 @@ export default function AppHeader({
             </Text>
           )}
         </View>
+
+        {!!extra.onRefresh && (
+          <Pressable
+            onPress={extra.onRefresh}
+            disabled={extra.refreshing}
+            hitSlop={10}
+            className="mr-2 h-10 w-10 items-center justify-center rounded-full bg-white/20 active:bg-white/30"
+          >
+            <Ionicons name="refresh" size={20} color="#fff" />
+          </Pressable>
+        )}
 
         {isHome ? (
           <Image
