@@ -35,28 +35,28 @@ const CURRENT: Feature[] = [
     icon: "call",
     color: "#16A34A",
   },
-];
-
-const UPCOMING: Feature[] = [
-  {
-    label: "Calendar",
-    desc: "Academic dates",
-    icon: "calendar",
-    color: "#F59E0B",
-  },
-  { label: "Transport", desc: "Bus schedules", icon: "bus", color: "#EA580C" },
   {
     label: "News",
-    desc: "Latest updates",
+    desc: "Latest university articles and updates.",
     icon: "newspaper",
     color: "#0EA5E9",
   },
   {
     label: "Notice",
-    desc: "Official notices",
+    desc: "Official notices and circulars, viewable as PDFs.",
     icon: "megaphone",
     color: "#7C3AED",
   },
+  {
+    label: "Calendar",
+    desc: "Academic calendar with weekends and official off-days.",
+    icon: "calendar",
+    color: "#F59E0B",
+  },
+];
+
+const UPCOMING: Feature[] = [
+  { label: "Transport", desc: "Bus schedules", icon: "bus", color: "#EA580C" },
   { label: "Events", desc: "Campus events", icon: "ribbon", color: "#DB2777" },
 ];
 
@@ -149,7 +149,7 @@ export default function About() {
         <Animated.View
           key={f.label}
           entering={FadeInDown.delay(120).duration(500)}
-          className="flex-row rounded-2xl bg-white p-4"
+          className="flex-row rounded-2xl bg-white p-4 mb-2"
           style={[card, { borderLeftWidth: 4, borderLeftColor: f.color }]}
         >
           <View

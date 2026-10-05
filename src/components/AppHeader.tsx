@@ -3,6 +3,7 @@ import type { NativeStackHeaderProps } from "@react-navigation/native-stack";
 import { Image } from "expo-image";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
+import { useRef } from "react";
 import { ActivityIndicator, Pressable, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useDrawer } from "./DrawerContext";
@@ -13,6 +14,7 @@ const TOP_LEVEL = [
   "news",
   "notice",
   "events",
+  "videos",
   "transport",
   "about",
   "settings",
@@ -37,6 +39,8 @@ export default function AppHeader({
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const { openDrawer } = useDrawer();
+  const navigatingRef = useRef(false);
+
   const title = options.title ?? route.name;
   const extra = options as typeof options & ExtraHeaderOptions;
   const isHome = !!extra.isHomeScreen;
@@ -46,6 +50,15 @@ export default function AppHeader({
     options.headerBackVisible !== false &&
     !TOP_LEVEL.includes(route.name);
   const showMenu = !extra.hideMenuButton;
+
+  const safeNavigate = (action: () => void) => {
+    if (navigatingRef.current) return;
+    navigatingRef.current = true;
+    action();
+    setTimeout(() => {
+      navigatingRef.current = false;
+    }, 400); // cooldown window — see note above; does not delay the action itself
+  };
 
   return (
     <LinearGradient
@@ -72,8 +85,27 @@ export default function AppHeader({
         )}
 
         {showBack && (
-          <Pressable onPress={navigation.goBack} hitSlop={12} className="mr-2">
+          <Pressable
+            onPress={() => safeNavigate(() => navigation.goBack())}
+            hitSlop={12}
+            className="mr-2"
+          >
             <Ionicons name="chevron-back" size={24} color="#fff" />
+          </Pressable>
+        )}
+
+        {!!extra.onRefresh && (
+          <Pressable
+            onPress={extra.onRefresh}
+            disabled={extra.refreshing}
+            hitSlop={10}
+            className="mr-2 h-10 w-10 items-center justify-center rounded-full bg-white/20 active:bg-white/30"
+          >
+            {extra.refreshing ? (
+              <ActivityIndicator size="small" color="#fff" />
+            ) : (
+              <Ionicons name="refresh" size={20} color="#fff" />
+            )}
           </Pressable>
         )}
 
@@ -91,30 +123,17 @@ export default function AppHeader({
           )}
         </View>
 
-        {!!extra.onRefresh && (
-          <Pressable
-            onPress={extra.onRefresh}
-            disabled={extra.refreshing}
-            hitSlop={10}
-            className="mr-2 h-10 w-10 items-center justify-center rounded-full bg-white/20 active:bg-white/30"
-          >
-            {extra.refreshing ? (
-              <ActivityIndicator size="small" color="#fff" />
-            ) : (
-              <Ionicons name="refresh" size={20} color="#fff" />
-            )}
-          </Pressable>
-        )}
-
         {isHome ? (
           <Image
             source={require("../../assets/images/uftb-logo.png")}
-            style={{ width: 60, height: 60 }}
+            style={{ width: 46, height: 46 }}
             contentFit="contain"
           />
         ) : extra.rightHref ? (
           <Pressable
-            onPress={() => router.dismissTo(extra.rightHref as any)}
+            onPress={() =>
+              safeNavigate(() => router.dismissTo(extra.rightHref as any))
+            }
             hitSlop={10}
             className="h-10 w-10 items-center justify-center rounded-full bg-white/20 active:bg-white/30"
           >
@@ -126,7 +145,7 @@ export default function AppHeader({
           </Pressable>
         ) : (
           <Pressable
-            onPress={() => router.dismissTo("/")}
+            onPress={() => safeNavigate(() => router.dismissTo("/"))}
             hitSlop={10}
             className="h-10 w-10 items-center justify-center rounded-full bg-white/20 active:bg-white/30"
           >

@@ -10,17 +10,18 @@ import {
 import { Stack } from "expo-router";
 import * as NativeSplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
-import { View } from "react-native";
+import { BackHandler, View } from "react-native";
 import "../global.css";
 
 import CustomSplashScreen from "@/screens/SplashScreen";
 import * as SplashScreen from "expo-splash-screen";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [showSplash, setShowSplash] = useState(true);
+  const backNavigatingRef = useRef(false);
 
   const onLayoutRootView = useCallback(async () => {
     await NativeSplashScreen.hideAsync();
@@ -38,6 +39,22 @@ export default function RootLayout() {
     const subscription = listenForPushTokenChanges();
     return () => subscription.remove();
   }, []);
+
+  useEffect(() => {
+    const sub = BackHandler.addEventListener("hardwareBackPress", () => {
+      if (backNavigatingRef.current) return true; // swallow the extra rapid press
+
+      backNavigatingRef.current = true;
+      setTimeout(() => {
+        backNavigatingRef.current = false;
+      }, 400);
+
+      return false; // let the default back behavior proceed normally
+    });
+
+    return () => sub.remove();
+  }, []);
+
   return (
     <View className="flex-1" onLayout={onLayoutRootView}>
       <DrawerProvider>
