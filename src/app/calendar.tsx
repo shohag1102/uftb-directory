@@ -1,6 +1,6 @@
 import NoConnectionState from "@/components/NoConnectionState";
 import { useCalendarYear } from "@/hooks/useCalendar";
-import { BN_MONTHS, EN_MONTHS, toBn } from "@/lib/bn";
+import { BN_MONTHS, toBn } from "@/lib/bn";
 import {
   buildDayMap,
   dateKey,
@@ -23,6 +23,7 @@ const RED = "#DC2626";
 const BLUE = "#3B82F6";
 const NAVY = "#0B3D91";
 const WEEK = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const WEEK_BN = ["রবি", "সোম", "মঙ্গল", "বুধ", "বৃহস্পতি", "শুক্র", "শনি"];
 const shadow = {
   shadowColor: "#0F172A",
   shadowOpacity: 0.08,
@@ -94,9 +95,6 @@ export default function CalendarScreen() {
 
             <View className="items-center">
               <Text className="text-lg font-bold text-slate-800">
-                {EN_MONTHS[cursor.m]} {cursor.y}
-              </Text>
-              <Text className="text-xs text-slate-500">
                 {BN_MONTHS[cursor.m]} {toBn(cursor.y)}
               </Text>
             </View>
@@ -115,7 +113,7 @@ export default function CalendarScreen() {
           <View className="px-3 pb-3 pt-3">
             {/* Weekday labels */}
             <View className="flex-row">
-              {WEEK.map((w, i) => (
+              {WEEK_BN.map((w, i) => (
                 <Text
                   key={w}
                   className="flex-1 text-center text-xs font-semibold"
@@ -229,8 +227,8 @@ export default function CalendarScreen() {
         <View className="mt-4 rounded-2xl bg-white p-4" style={shadow}>
           <View className="mb-2 flex-row items-center">
             <Ionicons name="calendar-outline" size={18} color={NAVY} />
-            <Text className="ml-2 text-base font-bold text-slate-800">
-              {BN_MONTHS[cursor.m]} মাসের ছুটি
+            <Text className="ml-2 text-base font-bold text-slate-800 w-[90%]">
+              {BN_MONTHS[cursor.m]} মাসের ছুটির তালিকা
             </Text>
           </View>
 
