@@ -50,14 +50,7 @@ const CATEGORIES: {
     desc: "Campus events and programs",
     icon: "ribbon",
     color: "#DB2777",
-  },
-  // {
-  //   key: "transport",
-  //   label: "Transport",
-  //   desc: "Bus schedule changes",
-  //   icon: "bus",
-  //   color: "#EA580C",
-  // },
+  }
 ];
 
 export default function NotificationSettings() {
@@ -83,21 +76,21 @@ export default function NotificationSettings() {
     }
   };
 
-  const sendTestNotification = async () => {
-    setSendingTest(true);
-    try {
-      await Notifications.scheduleNotificationAsync({
-        content: {
-          title: "UFTB Info",
-          body: "This is how your notifications will look.",
-          sound: "default",
-        },
-        trigger: null,
-      });
-    } finally {
-      setSendingTest(false);
-    }
-  };
+  // const sendTestNotification = async () => {
+  //   setSendingTest(true);
+  //   try {
+  //     await Notifications.scheduleNotificationAsync({
+  //       content: {
+  //         title: "UFTB Info",
+  //         body: "This is how your notifications will look.",
+  //         sound: "default",
+  //       },
+  //       trigger: null,
+  //     });
+  //   } finally {
+  //     setSendingTest(false);
+  //   }
+  // };
 
   return (
     <ScrollView
@@ -199,14 +192,14 @@ export default function NotificationSettings() {
       )}
 
       {/* Category preferences */}
-      <View className="mb-3 mt-7 flex-row items-center">
+      {/* <View className="mb-3 mt-7 flex-row items-center">
         <View className="mr-2 h-5 w-1.5 rounded-full bg-blue-600" />
         <Text className="text-base font-bold text-slate-800">
           Notify me about
         </Text>
-      </View>
+      </View> */}
 
-      <View className="overflow-hidden rounded-2xl bg-white" style={card}>
+      {/* <View className="overflow-hidden rounded-2xl bg-white" style={card}>
         {CATEGORIES.map((c, i) => (
           <View key={c.key}>
             <View className="flex-row items-center px-4 py-3.5">
@@ -237,10 +230,10 @@ export default function NotificationSettings() {
       <Text className="mt-2 px-1 text-[11px] leading-4 text-slate-400">
         These preferences are saved on this device. Turn on Allow Notifications
         above to receive any alerts.
-      </Text>
+      </Text> */}
 
       {/* Test notification */}
-      <Pressable
+      {/* <Pressable
         onPress={sendTestNotification}
         disabled={sendingTest || !granted}
         className="mt-7 flex-row items-center justify-center rounded-2xl border border-blue-200 bg-blue-50 py-3.5 active:opacity-80"
@@ -259,7 +252,7 @@ export default function NotificationSettings() {
       </Pressable>
       <Text className="mt-2 px-1 text-center text-[11px] text-slate-400">
         Shows a sample on this device only — no internet needed.
-      </Text>
+      </Text> */}
     </ScrollView>
   );
 }
