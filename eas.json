@@ -5,7 +5,7 @@
       "distribution": "internal",
       "android": { "buildType": "apk" },
       "env": {
-        "EXPO_PUBLIC_API_BASE_URL": "http://172.17.102.112:5000"
+        "EXPO_PUBLIC_API_BASE_URL": "https://uftb-directory-api.onrender.com/"
       }
     }
   }
